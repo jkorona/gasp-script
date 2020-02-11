@@ -4,7 +4,7 @@
   "description": "Classify images by giving meaningful file names and group by metadata information",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node index.js '/test/assets/'",
     "test": "test"
   },
   "author": "Jan Korona <jan.korona@gmail.com>",
