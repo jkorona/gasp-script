@@ -1,11 +1,17 @@
+const fs = require('fs');
+const util = require('util');
 const exif = require('jpeg-exif');
+const figlet = require('figlet');
 
-const path = __dirname + '/test/assets/1.jpg';
+const parseExif = util.promisify(exif.parse);
+const renderLabel = util.promisify(figlet);
 
-exif.parse(path, (err, data) => {
-  if (err) {
-      console.log(err);
-  } else {
-      console.log(data);
-  }
-});
+renderLabel('PHOTOCLASS', { font: 'Speed' }).then((data) => console.log(data));
+
+(async function main() {
+  const metadataList = await Promise.all(fs.readdirSync(__dirname + '/test/assets')
+    .filter(file => /\.(jpg|jpeg|tiff)$/.test(file))
+    .map(file => parseExif(__dirname + '/test/assets/' + file))
+  );
+  metadataList.map(metadata => metadata.SubExif.DateTimeOriginal)
+})();

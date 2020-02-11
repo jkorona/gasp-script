@@ -4,11 +4,13 @@
   "description": "Classify images by giving meaningful file names and group by metadata information",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "test"
   },
   "author": "Jan Korona <jan.korona@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "figlet": "^1.2.4",
     "jpeg-exif": "^1.1.4"
   }
 }
