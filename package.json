@@ -8,6 +8,10 @@
     "test": "test"
   },
   "author": "Jan Korona <jan.korona@gmail.com>",
+  "preferGlobal": true,
+  "bin": {
+    "pcc": "./index.js"
+  },
   "license": "MIT",
   "dependencies": {
     "clear": "^0.1.0",
