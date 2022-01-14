@@ -1,16 +1,15 @@
 {
-  "name": "photoclass",
+  "name": "gasp-script",
   "version": "1.0.0",
-  "description": "Classify images by giving meaningful file names and group by metadata information",
-  "main": "index.js",
+  "description": "Script that Groups And Sorts Photo files across multiple folders",
+  "main": "index.mjs",
   "scripts": {
-    "start": "node index.js '/test/assets/'",
     "test": "test"
   },
   "author": "Jan Korona <jan.korona@gmail.com>",
   "preferGlobal": true,
   "bin": {
-    "pcc": "./index.js"
+    "gasp": "./index.mjs"
   },
   "license": "MIT",
   "dependencies": {

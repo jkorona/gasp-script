@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 
 import { resolve, basename } from 'path';
 import { mkdirSync, copyFileSync } from 'fs';
@@ -8,7 +9,7 @@ import { read } from './lib/utils/reader.mjs';
 import { sort } from './lib/utils/sorter.mjs';
 import { progress } from './lib/utils/progress.mjs';
 
-const logo = await promisify(figlet)('PHOTOCLASS', { font: 'Speed' });
+const logo = await promisify(figlet)('GASP', { font: 'Speed' });
 program
   .version('1.0.0')
   .addHelpText('before', logo)
