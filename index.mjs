@@ -3,6 +3,7 @@ import { resolve, basename } from 'path';
 import { mkdirSync, copyFileSync } from 'fs';
 import { read } from './lib/utils/reader.mjs';
 import { sort } from './lib/utils/sorter.mjs';
+import { progress } from './lib/utils/progress.mjs';
 
 const options = {
   group: 'month', // 'none' | 'month',
@@ -16,6 +17,7 @@ const target = process.argv[3]
 const files = await read(source);
 const sorted = sort(files, options);
 
+const update = progress(files.length);
 Object.keys(sorted).forEach((year) => {
   const yearDir = resolve(target, year);
   mkdirSync(yearDir, { recursive: true });
@@ -31,6 +33,7 @@ Object.keys(sorted).forEach((year) => {
       sorted[year][month][day].forEach(({ name: oldPath }) => {
         const newPath = resolve(dayDir, basename(oldPath));
         copyFileSync(oldPath, newPath);
+        update();
       });
     });
 
