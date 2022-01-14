@@ -18,26 +18,23 @@ const files = await read(source);
 const sorted = sort(files, options);
 
 const update = progress(files.length);
-Object.keys(sorted).forEach((year) => {
-  const yearDir = resolve(target, year);
-  mkdirSync(yearDir, { recursive: true });
 
-  Object.keys(sorted[year]).forEach((month) => {
-    const monthDir = resolve(yearDir, month);
-    mkdirSync(monthDir, { recursive: true });
-
-    Object.keys(sorted[year][month]).forEach((day) => {
-      const dayDir = resolve(monthDir, day);
-      mkdirSync(dayDir, { recursive: true });
-
-      sorted[year][month][day].forEach(({ name: oldPath }) => {
-        const newPath = resolve(dayDir, basename(oldPath));
-        copyFileSync(oldPath, newPath);
-        update();
-      });
+function build(model, target) {
+  if (Array.isArray(model)) {
+    model.forEach(({ name: oldPath }) => {
+      const newPath = resolve(target, basename(oldPath));
+      copyFileSync(oldPath, newPath);
+      update();
     });
+  } else {
+    Object.keys(model).forEach((dir) => {
+      const dirPath = resolve(target, dir);
+      mkdirSync(dirPath, { recursive: true });
+      build(model[dir], dirPath);
+    });
+  }
+}
 
-  });
-});
+build(sorted, target);
 
 //   const label = await renderLabel('PHOTOCLASS', { font: 'Speed' });
