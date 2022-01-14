@@ -4,10 +4,10 @@ NodeJS script that **G**roups **A**nd **S**orts **P**hotos.
 
 Script follows algorithm described below:
 
-1. Finds all the images in the `target` folder and all its subfolders
+1. Finds all the images in the `source` folder and all its subfolders
 2. Reads photo creation date and time from file metadata (exif)
 3. Sorts by date/time and groups by year, month and day
-4. Saves photos in new ordered file structure
+4. Saves photos in new ordered file structure under `target` location
 
 ## Installation
 
