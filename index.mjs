@@ -1,18 +1,29 @@
 
 import { resolve, basename } from 'path';
 import { mkdirSync, copyFileSync } from 'fs';
+import { promisify } from 'util';
+import figlet from 'figlet';
+import { program, Option } from 'commander/esm.mjs';
 import { read } from './lib/utils/reader.mjs';
 import { sort } from './lib/utils/sorter.mjs';
 import { progress } from './lib/utils/progress.mjs';
 
-const options = {
-  group: 'month', // 'none' | 'month',
-  sort: 'asc', // 'asc' | 'dsc',
-  mode: 'copy',  // copy | move
-};
+const logo = await promisify(figlet)('PHOTOCLASS', { font: 'Speed' });
+program
+  .version('1.0.0')
+  .addHelpText('before', logo)
+  .argument('<source>', 'path to directory with photos to group & sort')
+  .argument('<target>', 'path to directory where grouped & sorted photos should be placed afterwards')
+  .addOption(new Option('-s, --sort <dir>', 'sorting direction').choices(['asc', 'dsc']).default('asc', 'asc'))
+  .addOption(new Option('-m, --mode <mode>', 'defines how to process files').choices(['copy', 'move']).default('copy', 'copy'));
 
-const source = process.argv[2];
-const target = process.argv[3]
+program.parse(process.argv);
+
+console.log(program.opts())
+console.log(program.args)
+
+const options = program.opts();
+const [source, target] = program.args;
 
 const files = await read(source);
 const sorted = sort(files, options);
@@ -37,4 +48,4 @@ function build(model, target) {
 
 build(sorted, target);
 
-//   const label = await renderLabel('PHOTOCLASS', { font: 'Speed' });
+console.log('Done!\n');

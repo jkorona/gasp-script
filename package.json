@@ -16,6 +16,7 @@
   "dependencies": {
     "clear": "^0.1.0",
     "clui": "^0.3.6",
+    "commander": "^8.3.0",
     "date-fns": "^2.28.0",
     "figlet": "^1.2.4",
     "jpeg-exif": "^1.1.4"
