@@ -9,6 +9,12 @@ Script follows algorithm described below:
 3. Sorts by date/time and groups by year, month and day
 4. Saves photos in new ordered file structure under `target` location
 
+Currently supported file types:
+* `jpg`
+* `jpeg`
+* `tiff`
+* `jiff`
+
 ## Installation
 
 ```bash
