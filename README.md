@@ -33,6 +33,6 @@ Arguments:
 Options:
   -V, --version      output the version number
   -s, --sort <dir>   sorting direction (choices: "asc", "dsc", default: asc)
-  -m, --mode <mode>  defines how to process files (choices: "copy", "move", default: copy)
+  -f, --flat         output flat folder structure
   -h, --help         display help for command
 ```

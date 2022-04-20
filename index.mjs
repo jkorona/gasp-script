@@ -8,15 +8,18 @@ import { program, Option } from 'commander/esm.mjs';
 import { read } from './lib/utils/reader.mjs';
 import { sort } from './lib/utils/sorter.mjs';
 import { progress } from './lib/utils/progress.mjs';
+import { flatten } from './lib/utils/flatten.mjs';
 
+const log = (...messages) => options.verbose && console.log(...messages);
 const logo = await promisify(figlet)('GASP', { font: 'Speed' });
+
 program
   .version('1.0.1')
   .addHelpText('before', logo)
   .argument('<source>', 'path to directory with photos to group & sort')
   .argument('<target>', 'path to directory where grouped & sorted photos should be placed afterwards')
   .addOption(new Option('-s, --sort <dir>', 'sorting direction').choices(['asc', 'dsc']).default('asc', 'asc'))
-  .addOption(new Option('-m, --mode <mode>', 'defines how to process files').choices(['copy', 'move']).default('copy', 'copy'))
+  .addOption(new Option('-f, --flat', 'output flat folder structure'))
   .addOption(new Option('-v, --verbose', 'enables additional logging dor debugging'));
 
 program.parse(process.argv);
@@ -24,7 +27,7 @@ program.parse(process.argv);
 const options = program.opts();
 const [source, target] = program.args;
 
-const log = (...messages) => options.verbose && console.log(...messages);
+log('Run with options:', options);
 
 const files = await read(source);
 log(`Found ${files.length} files in source directory ${source}.`);
@@ -50,6 +53,10 @@ function build(model, target) {
   }
 }
 
-build(sorted, target);
+if (options.flat) {
+  build(flatten(sorted), target);
+} else {
+  build(sorted, target);
+}
 
 console.log('Done!\n');
